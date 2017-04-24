@@ -1,0 +1,60 @@
+﻿@model BaiTap.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/CustomerLayout.cshtml";
+}
+
+<!-- breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 ">
+            <li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+            <li class="active">Register Page</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+<!-- register -->
+<div class="register">
+    <div class="container">
+        <h3>Register Here</h3>
+        <p class="est" >
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+            deserunt mollit anim id est laborum.
+        </p>
+        <div class="login-form-grids">
+            <span class="red">@ViewBag.Notice</span> 
+            <h5  >profile information</h5>
+            @using (Html.BeginForm())
+            { 
+                <input type="text" name="UserName" id="UserName" placeholder="Username...">
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                <input type="text" name="Phone" id="Phone" placeholder="Phone...">
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                <input type="text" name="Address" id="Address" placeholder="Address...">
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            <div class="register-check-box animated wow slideInUp">
+            </div>
+            <h6 >Login information</h6>
+                <input type="text" name="Email" id="Email" placeholder="Email Address">
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                <input type="password" name="Password" id="Password" placeholder="Password">
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                <input type="password" name="RetypePassword" id="RetypePassword" placeholder="Password Confirmation">
+                @Html.ValidationMessageFor(model => model.RetypePassword, "", new { @class = "text-danger" })
+                <div class="register-check-box">
+                    <div class="check">
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i> </i>I accept the terms and conditions</label>
+                    </div>
+                </div>
+                <input type="submit" value="Register">
+            }
+        </div>
+        <div class="register-home animated wow slideInUp" data-wow-delay=".5s">
+            <a href="index.html">Home</a>
+        </div>
+    </div>
+</div>
+<!-- //register -->
+

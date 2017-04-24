@@ -1,0 +1,65 @@
+﻿@model BaiTap.Models.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/CustomerLayout.cshtml";
+}
+<!-- breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1">
+            <li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+            <li class="active">Login Page</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+<!-- login -->
+<div class="login">
+    <div class="container">
+        <h3 >Login Form</h3>
+        <p >
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+            deserunt mollit anim id est laborum.
+        </p>
+        
+        <div class="login-form-grids " >
+            @using (Html.BeginForm("Login", "Auth"))
+            {
+                <span class="red">@ViewBag.Notification</span> 
+                <input type="text" name="Email" id="Email" placeholder="Email Address" >
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                <input type="password" name="Password" id="Password" placeholder="Password" >
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                <div class="forgot">
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <input type="submit" value="Login">
+            }
+        </div>
+        <h4 class="animated wow slideInUp" >For New People</h4>
+        <p class="animated wow slideInUp" ><a href="register.html">Register Here</a> (Or) go back to <a href="index.html">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+    </div>
+</div>
+<!-- //login -->
+
+
+@*@using (html.beginform("login", "auth"))
+{
+    <div class="form-group">
+        @html.labelfor(model => model.email, htmlattributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @html.editorfor(model => model.email, new { htmlattributes = new { @class = "form-control" } })
+            @html.validationmessagefor(model => model.email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @html.labelfor(model => model.password, htmlattributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @html.passwordfor(model => model.password, new { htmlattributes = new { @class = "form-control" } })
+            @html.validationmessagefor(model => model.password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+   <button type="submit">submit</button>
+}*@

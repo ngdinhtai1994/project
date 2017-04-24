@@ -1,0 +1,155 @@
+﻿@model BaiTap.Models.ProductViewModel
+
+@{
+    ViewBag.Title = Model.ProductName + " Edit";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    ViewBag.PageHeader = "Product";
+    ViewBag.Optional = "Edit";
+}
+
+
+@using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <span class="red">@ViewBag.Notice</span>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                <label for="file1" class="control-label col-md-2">Filename:</label>
+                <div class="col-md-10">
+                    @if (Model.Thumbnail != null)
+                    {
+                        <img src="@Url.Content(Model.Thumbnail)" width="60" height="80" />
+                    }
+                    <input type="file" name="files" id="file1" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="file2" class="control-label col-md-2">Filename:</label>
+                <div class="col-md-10">
+                    @if (Model.Image2 != null)
+                    {
+                        <img src="@Url.Content(Model.Image2)" width="60" height="80" />
+                    }
+                    <input type="file" name="files" id="file2" class="form-control" />
+                </div>
+            </div>*@
+        @{  bool thumbnail = true;
+            foreach (var image in Model.Images)
+            {
+                <div class="form-group">
+                    @if (thumbnail)
+                    {
+                    <label for="file" class="control-label col-md-2">Thumbnail</label>
+                    <div class="col-md-5">
+                        @if (image.ImagePath != null)
+                        {
+
+                            <img src="@Url.Content("~" + image.ImagePath)" width="60" height="80" class="form-group-bottom" />
+                        }
+                        <input type="file" name="files" class="form-control" />
+                    </div>
+                        thumbnail = false;
+                    }
+                    else
+                    {
+                        <div class="col-md-5 col-md-offset-2">
+                            @if (image.ImagePath != null)
+                            {
+
+                                <img src="@Url.Content("~" + image.ImagePath)" width="60" height="80" class="form-group-bottom" />
+                            }
+                            <input type="file" name="files" class="form-control" />
+                        </div>
+                    } 
+                </div>
+            }
+        }
+        <!--add files jquery-->
+        <script>
+            $(document).ready(function () {
+                $("#target").click(function () {
+                    $("#addFiles").append("<div class=\"form-group\" ><div class=\"col-md-5 col-md-offset-2\"><input type=\"file\" name=\"files\" id=\"file2\" class=\"form-control\" /></div></div>");
+                });
+            });
+        </script>
+        <div class="col-md-offset-2 form-group-bottom">
+            <button id="target" type="button" class="btn btn-success">Add files...</button>
+        </div>
+        <div id="addFiles"></div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ShortDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SortOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SortOrder, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SortOrder, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                @Html.TextAreaFor(model => model.Description, new { @id = "ckeContent" })
+                <script type="text/javascript">
+                    CKEDITOR.replace("ckeContent")
+                </script>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+            }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
