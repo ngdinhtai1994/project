@@ -1,2 +1,2 @@
-tai delete '123' and add '456'
-456
+tai edit'456' to '123'
+123
